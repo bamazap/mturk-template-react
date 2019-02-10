@@ -34,5 +34,6 @@
     "@types/axios": "^0.14.0",
     "@types/lodash": "^4.14.120",
     "@types/react-radio-group": "^3.0.2"
-  }
+  },
+  "homepage": "."
 }

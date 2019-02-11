@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import styles from './App.module.scss';
 import Instructions from './Instructions/Instructions';
 import Task, { TaskData } from './Task/Task';
 import DemographicSurvey, { SurveyData } from './DemographicSurvey/DemographicSurvey';
 import Done from './Done/Done';
+import { formPOST } from './utils';
 
 const title = 'Experiment Title';
 document.title = title;
@@ -27,36 +27,24 @@ export default class App extends Component<{}, State> {
     page: pages.instructions
   };
 
+  /**
+   * Submits data to AMT and then shows the done page
+   * You will need to modify this if you are not in an AMT iframe
+   */
   submit = () => {
-    const form = new FormData(); // AMT expects Form Data
     const urlParams = new URLSearchParams(window.location.search);
-
-    // AMT expects this field
-    form.set('assignmentId', urlParams.get('assignmentId') || '?');
-    // AMT ignores these fields so you can remove them if you are sending to AMT
-    form.set('workerId', urlParams.get('workerId') || '?');
-    form.set('hitId', urlParams.get('workerId') || '?');
-
-    form.set('taskData', JSON.stringify(this.state.taskData));
-    form.set('surveyData', JSON.stringify(this.state.surveyData));
-
-    // should get prod/sandbox domain, falling back to prod
+    // should get prod/sandbox domain
     let submitDomain = urlParams.get('turkSubmitTo') || 'https://www.mturk.com/';
     if (!submitDomain.endsWith('/')) {
       submitDomain += '/';
     }
     const submitURL = `${submitDomain}mturk/externalSubmit`;
-    const options = {
-      headers: {'Content-Type': 'application/x-www-form-urlencoded' },
-      data: {} // config seems to be ignored unless data is defined
-    };
-    axios.post(submitURL, form, options)
-      .then(() => {
-        this.setState({ page: pages.done });
-      })
-      .catch(() => {
-        alert('Something went wrong. Please try again, or contact us if the problem persists.');
-      });
+    formPOST(submitURL, {
+      assignmentId: urlParams.get('assignmentId') || '?', // AMT needs this
+      taskData: this.state.taskData,
+      surveyData: this.state.surveyData,
+    });
+    this.setState({ page: pages.done });
   }
 
   render() {

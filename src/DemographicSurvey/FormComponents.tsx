@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as _ from 'lodash';
+import { isString, startCase } from 'lodash';
 
 
 // Shared
@@ -42,7 +42,7 @@ abstract class Group<T extends GroupProps> extends Component<T> {
             checked={this.isChecked(value)}
             readOnly={true}
           />
-          <span>{_.isString(display) ? display : _.startCase(value)}</span>
+          <span>{isString(display) ? display : startCase(value)}</span>
         </label>
       ))}
       </div>

@@ -6,6 +6,9 @@ import Task, { TaskData } from './Task/Task';
 import DemographicSurvey, { SurveyData } from './DemographicSurvey/DemographicSurvey';
 import Done from './Done/Done';
 
+const title = 'Experiment Title';
+document.title = title;
+
 enum pages {
   instructions,
   task,
@@ -73,12 +76,15 @@ export default class App extends Component<{}, State> {
     return (
       <div className={styles.app}>
         <header>
-          <h1>Experiment Title</h1>
+          <h1>{ title }</h1>
         </header>
 
         <main>
           { mainContent }
         </main>
+        <footer>
+          <p>This is a disclaimer. You are participating voluntarily.</p>
+        </footer>
       </div>
     );
   }

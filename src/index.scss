@@ -13,6 +13,18 @@ body {
   padding: 0;
 }
 
+/* some decent default button styling */
+button {
+  font-size: 150%;
+  background: lightgray;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+button:hover {
+  cursor: pointer;
+  box-shadow: inset 0 0 100px 100px rgba(0,0,0,.15);
+}
+
 .bold {
   font-weight: bold;
 }

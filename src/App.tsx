@@ -41,7 +41,10 @@ export default class App extends Component<{}, State> {
     form.set('surveyData', JSON.stringify(this.state.surveyData));
 
     // should get prod/sandbox domain, falling back to prod
-    const submitDomain = urlParams.get('turkSubmitTo') || 'https://www.mturk.com/';
+    let submitDomain = urlParams.get('turkSubmitTo') || 'https://www.mturk.com/';
+    if (!submitDomain.endsWith('/')) {
+      submitDomain += '/';
+    }
     const submitURL = `${submitDomain}mturk/externalSubmit`;
     const options = { headers: {'Content-Type': 'multipart/form-data' }};
     axios.post(submitURL, form, options);

@@ -47,7 +47,13 @@ export default class App extends Component<{}, State> {
     }
     const submitURL = `${submitDomain}mturk/externalSubmit`;
     const options = { headers: {'Content-Type': 'multipart/form-data' }};
-    axios.post(submitURL, form, options);
+    axios.post(submitURL, form, options)
+      .then(() => {
+        this.setState({ page: pages.done });
+      })
+      .catch((error) => {
+        alert('Something went wrong. Please try again, or contact us if the problem persists.');
+      });
   }
 
   render() {
@@ -66,10 +72,7 @@ export default class App extends Component<{}, State> {
     } else if (this.state.page === pages.survey) {
       mainContent = <DemographicSurvey
         onSubmit={(surveyData) => {
-          this.setState({
-            page: pages.done,
-            surveyData
-          }, this.submit);
+          this.setState({ surveyData }, this.submit);
         }}
       />
     } else {

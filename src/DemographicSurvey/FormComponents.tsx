@@ -39,7 +39,8 @@ abstract class Group<T extends GroupProps> extends Component<T> {
             type={this.inputType}
             name={name}
             value={value}
-            defaultChecked={this.isChecked(value)}
+            checked={this.isChecked(value)}
+            readOnly={true}
           />
           <span>{_.isString(display) ? display : _.startCase(value)}</span>
         </label>

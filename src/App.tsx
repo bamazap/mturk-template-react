@@ -46,12 +46,15 @@ export default class App extends Component<{}, State> {
       submitDomain += '/';
     }
     const submitURL = `${submitDomain}mturk/externalSubmit`;
-    const options = { headers: {'Content-Type': 'multipart/form-data' }};
+    const options = {
+      headers: {'Content-Type': 'application/x-www-form-urlencoded' },
+      data: {} // config seems to be ignored unless data is defined
+    };
     axios.post(submitURL, form, options)
       .then(() => {
         this.setState({ page: pages.done });
       })
-      .catch((error) => {
+      .catch(() => {
         alert('Something went wrong. Please try again, or contact us if the problem persists.');
       });
   }

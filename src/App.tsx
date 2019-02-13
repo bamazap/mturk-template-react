@@ -80,7 +80,7 @@ export default class App extends Component<{}, State> {
           { mainContent }
         </main>
         <footer>
-          <p>This is a disclaimer. You are participating voluntarily.</p>
+          <p>By making judgments about these actions, you are participating in a study being performed by MIT. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you.</p>
         </footer>
       </div>
     );
